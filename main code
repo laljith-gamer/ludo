@@ -1,0 +1,531 @@
+import turtle as t
+import math,pickle
+import keyboard as k
+from time import sleep
+from random import randint
+c=t.Turtle()
+c.speed(0)
+t.bgcolor('black')
+sleep(1)
+t.speed(0)
+b=t.Screen()
+t.bgcolor('black')
+b.title('infinite fun')
+c.pencolor('blue')
+c.write("L A L 'S   G A M E S",align='center',font=1)
+c.hideturtle()
+sleep(2)
+c.clear()
+c.hideturtle()
+t.clear()
+t.tracer(0)
+b=t.Screen()
+d1=t.Turtle()
+d1.hideturtle()
+d2=t.Turtle()
+t.bgcolor('lightblue')
+d1.pu()
+d2.pu()
+d1.color('green')
+d1.goto(0,50)
+t.speed(0)
+t.pu()
+t.fillcolor('white')
+t.begin_fill()
+t.goto(-150,100)
+t.pd()
+t.goto(150,100)
+t.goto(150,-100)
+t.goto(-150,-100)
+t.goto(-150,100)
+t.end_fill()
+t.pu()
+t.goto(0,0)
+t.pd()
+t.hideturtle()
+t.speed(0)
+d2.speed(0)
+rs=''
+s=((0,0),(0,20))
+t.register_shape('type',s)
+d2.shape('type')
+d2.left(90)
+d2.goto(-50,0)
+t.tracer(1,1)
+d1.write('Do you want to continue',align='center',font=100)
+while 3:
+    i=k.read_key()
+    if len(i)<2 and i.isalpha():
+        rs+=i
+        d2.write(i,move=True,font=100)
+    elif i=='backspace':
+            d2.undo()
+            d2.undo()
+            try:
+                d2.write(str(rs[-2]),move=True,font=100)
+            except IndexError:
+                d2.clear()
+                d2.goto(-50,0)
+                d2.left(90)
+            d21=''
+            if len(rs)>1:
+                for j in range(len(rs)-1):
+                    d21+=rs[j]
+            rs=d21
+    elif i=='enter':
+        for i in range(len(rs)):
+            d2.undo()
+        break
+    sleep(.1)
+sleep(.1)
+if rs=='yes':
+    f1=open('ludosave.txt','rb')
+    rd={}
+    while 2:
+        try:
+            rd=pickle.load(f1)
+        except EOFError:
+            f1.close()
+            break
+d1.clear()
+rl=[]
+co=['red','green','yellow','blue']
+if rs=='no':
+    rs=''
+    for i in range(1,5):
+        d1.color(co[i-1])
+        d1.write('{} person\'s name {} color'.format(i,co[i-1]),align='center',font=100)
+        while 2:
+            i=k.read_key()
+            if len(i)==1 and i.isalnum():
+                rs+=i
+                d2.write(i,move=True,font=100)
+            elif i=='backspace':
+                d2.undo()
+                d2.undo()
+                try:
+                    d2.write(str(rs[-2]),move=True,font=100)
+                except IndexError:
+                    d2.clear()
+                d21=''
+                if len(rs)>1:
+                    for j in range(len(rs)-1):
+                        d21+=rs[j]
+                rs=d21
+            elif i=='enter':
+                sleep(.1)
+                rl.append(rs)
+                for i in range(len(rs)):
+                    d2.undo()
+                rs=''
+                break
+            sleep(.1)
+        sleep(.1)
+        d1.clear()
+t.tracer(0)
+t.hideturtle()
+t.bgcolor('lightblue')
+t.fillcolor('white')
+t.begin_fill()
+b.setup(800,700)
+t.pu()
+t.goto(-300,280)
+t.pd()
+t.goto(300,280)
+t.goto(300,-320)
+t.goto(-300,-320)
+t.goto(-300,280)
+t.end_fill()
+s=((0,40),(40,40),(40,0),(0,0))  #square
+t.register_shape('cube',s)
+s=((0,0),(40,0),(7.64,-23.51),(20,14.53),(32.36,-23.51)) #star
+t.register_shape('star',s)
+t.shape('cube')
+t.color('white')
+t.pencolor('black')
+t.pu()
+t.goto(-300,40)
+def fun1(c):
+    t.shape('cube')
+    for i in range(1,13):
+        if i==2:
+            t.color(c)
+            t.pencolor('black')
+            t.stamp()
+        if i==7:
+            t.pu()
+            t.fd(120)
+            t.pd()
+            t.stamp()
+        t.stamp()
+        if i==11:
+            c=t.pos()
+            t.bk(15)
+            t.color('violet')
+            t.shape('star')
+            t.stamp()
+            t.shape('cube')
+            t.color('white')
+            t.pencolor('black')
+            t.goto(c)
+        t.fd(40)
+        t.color('white')
+        t.pencolor('black')
+def fun2(c1,c2):
+    t.shape('cube')
+    for i in range(1,13):
+        if i==7:
+            t.color(c2)
+            t.pencolor('black')
+            t.pu()
+            t.fd(120)
+            t.pd()
+        elif i>7:
+            t.stamp()
+            t.fd(40)
+        else:
+            t.stamp()
+            t.fd(40)
+            t.color(c1)
+            t.pencolor('black')
+    t.color('white')
+    t.pencolor('black')
+    t.stamp()
+fun1('red')
+t.pu()
+t.goto(-300,0)
+t.pd()
+fun2('red','yellow')
+x,y=t.pos()
+t.goto(x+40,y-80)
+t.left(180)
+fun1('yellow')
+t.left(180)
+t.pu()
+t.goto(60,280)
+t.pd()
+t.right(90)
+fun1('green')
+t.pu()
+t.goto(20,280)
+t.pd()
+fun2('green','blue')
+x,y=t.pos()
+t.pu()
+t.goto(x-80,y-40)
+t.right(180)
+fun1('blue')
+t.pu()
+t.goto(60,40)
+t.pd()
+t.shape('arrow')
+t.right(180)
+def fun3(col):
+    t.fillcolor(col)
+    t.begin_fill()
+    t.right(45)
+    t.fd(math.hypot(120,120)/2)
+    t.right(90)
+    t.fd(math.hypot(120,120)/2)
+    t.right(135)
+    t.fd(120)
+    t.end_fill()
+    t.bk(120)
+fun3('green')
+fun3('red')
+fun3('blue')
+fun3('yellow')
+def fun4(o1,o2,co):
+    t.fillcolor(co)
+    t.begin_fill()
+    t.pu()
+    t.goto(o1,o2)
+    t.pd()
+    t.goto(t.pos()[0]+240,t.pos()[1])
+    t.goto(t.pos()[0],t.pos()[1]-240)
+    t.goto(t.pos()[0]-240,t.pos()[1])
+    t.goto(t.pos()[0],t.pos()[1]+240)
+    t.end_fill()
+    t.pu()
+    t.goto(t.pos()[0]+40,t.pos()[1]-40)
+    t.pd()
+    t.fillcolor('white')
+    t.begin_fill()
+    t.goto(t.pos()[0]+160,t.pos()[1])
+    t.goto(t.pos()[0],t.pos()[1]-160)
+    t.goto(t.pos()[0]-160,t.pos()[1])
+    t.goto(t.pos()[0],t.pos()[1]+160)
+    t.end_fill()
+fun4(-300,280,'red')
+fun4(60,280,'green')
+fun4(60,-80,'yellow')
+fun4(-300,-80,'blue')
+a=[t.Turtle(),t.Turtle(),t.Turtle(),t.Turtle()]
+b=[t.Turtle(),t.Turtle(),t.Turtle(),t.Turtle()]
+c=[t.Turtle(),t.Turtle(),t.Turtle(),t.Turtle()]
+d=[t.Turtle(),t.Turtle(),t.Turtle(),t.Turtle()]
+clr=[a,b,c,d]
+p5=[[],[],[],[]]
+def fun5(x,o1,o2,co,c):
+    for i in range(4):
+        x[i].shape('circle')
+        x[i].speed(0)
+        x[i].pu()
+        x[i].color(co)
+        x[i].pencolor('black')
+        x[i].shapesize(1)
+    x[0].goto(o1+80,o2-80)
+    x[1].goto(o1+160,o2-80)
+    x[3].goto(o1+160,o2-160)
+    x[2].goto(o1+80,o2-160)
+    for i in range(4):
+        x[i].speed(1)
+        p5[c].append(x[i].pos())
+fun5(a,-300,280,'red',0)
+fun5(b,60,280,'green',1)
+fun5(c,60,-80,'yellow',2)
+fun5(d,-300,-80,'blue',3)
+t.pu()
+def l(ln,a):     #built
+    global y
+    if a==5:
+        for i in range(5):
+            t.fd(40)
+            ln.append(t.pos())
+            if i==0:
+                if y:
+                    sp.append(t.pos())
+                st.append(t.pos())
+    elif a==6:
+        for i in range(6):
+            t.fd(40)
+            ln.append(t.pos())
+            if i==3 and y:
+                sp.append(t.pos())
+    elif a==2:
+        for i in range(2):
+            t.fd(40)
+            ln.append(t.pos())
+    elif a==1:
+        t.fd(40)
+        ln.append(t.pos())
+    elif a==7:
+        for i in range(6):
+            t.fd(40)
+            ln.append(t.pos())
+red,blue,green,yellow,sp,st=[],[],[],[],[],[]
+def color(co,o1,o2):
+    t.goto(o1,o2)
+    t.left(90)
+    l(co,5)
+    t.fd(40)
+    t.left(90)
+    l(co,6)
+    t.right(90)
+    l(co,2)
+    t.right(90)
+    l(co,5)
+    t.fd(40)
+    t.left(90)
+    l(co,6)
+    t.right(90)
+    l(co,2)
+    t.right(90)
+    l(co,5)
+    t.fd(40)
+    t.left(90)
+    l(co,6)
+    t.right(90)
+    l(co,2)
+    t.right(90)
+    l(co,5)
+    t.fd(40)
+    t.left(90)
+    l(co,6)
+    t.right(90)
+    l(co,1)
+    t.right(90)
+    l(co,7)
+y=True
+color(red,-280,20)
+y=False
+t.right(180)
+color(green,st[1][0],st[1][1]+40)
+t.right(180)
+color(yellow,st[2][0]+40,st[2][1])
+t.left(180)
+color(blue,st[3][0],st[3][1]-40)
+def clean(a1):
+    for i in a1:
+        i.clear()
+def order(a1,i,h1,rand):
+    global per
+    i=int(i)-1
+    for j in range(len(h1)):
+        if abs(h1[j][0]-a1[i].pos()[0])<10 and abs(h1[j][1]-a1[i].pos()[1])<10:
+            if j+rand<len(h1):
+                for k1 in range(j+1,j+rand+1): 
+                    a1[i].shapesize(1.5)
+                    a1[i].goto(h1[k1])
+                    a1[i].shapesize(1)
+                    sleep(.1)
+            break
+    else:
+        a1[i].shapesize(1.5)
+        a1[i].goto(h1[0])
+        a1[i].shapesize(1)
+        sleep(.4)
+    for j1 in range(4):
+        if j1!=per:
+            for j2 in range(4):
+                if abs(clr[j1][j2].pos()[0]-a1[i].pos()[0])<10 and abs(clr[j1][j2].pos()[1]-a1[i].pos()[1])<10:
+                    for j3 in sp:
+                        if abs(j3[0]-a1[i].pos()[0])<10 and abs(j3[1]-a1[i].pos()[1])<10:
+                            break
+                    else:
+                        clr[j1][j2].shapesize(1.5)
+                        clr[j1][j2].goto(p5[j1][j2])
+                        clr[j1][j2].shapesize(1)
+def ga(a1,i,h1,rand):
+    global per
+    clean(a1)
+    i1=False
+    i=int(i)-1
+    for j in range(len(h1)):
+        if abs(h1[j][0]-a1[i].pos()[0])<10 and abs(h1[j][1]-a1[i].pos()[1])<10:
+            if j+rand<len(h1):
+                for k1 in range(j+1,j+rand+1):
+                    a1[i].shapesize(1.5)
+                    a1[i].goto(h1[k1])
+                    a1[i].shapesize(1)                                                                                                                                      
+                    sleep(.1)
+                i1=True
+            break
+    for j1 in range(4):
+        if j1!=per:
+            for j2 in range(4):
+                if abs(clr[j1][j2].pos()[0]-a1[i].pos()[0])<10 and abs(clr[j1][j2].pos()[1]-a1[i].pos()[1])<10:
+                    for j3 in sp:
+                        if abs(j3[0]-a1[i].pos()[0])<10 and abs(j3[1]-a1[i].pos()[1])<10:
+                            break
+                    else:
+                        clr[j1][j2].shapesize(1.5)
+                        clr[j1][j2].goto(p5[j1][j2])
+                        clr[j1][j2].shapesize(1)
+    return i1
+
+#main
+m=t.Turtle()
+m.pu()
+m.goto(0,300)
+m.hideturtle()
+t.tracer(1,1)
+h=[red,green,yellow,blue]
+def pl(a1,b1,h1):
+    global per
+    f1=open('ludosave.txt','wb')
+    di={'number':per}
+    for i in range(4):
+        di[co[i]]=rl[i]
+    for i in ['a','b','c','d']:
+        for j in range(4):
+            di['{}{}'.format(i,j+1)]=eval('{}[{}]'.format(i,j)).pos()
+    pickle.dump(di,f1)
+    f1.close()
+    rand=6
+    while rand==6:
+        m.clear()
+        m.write(b1+' turn enter to roll',font=100)
+        k.wait('enter')
+        rand=randint(1,6)
+        m.clear()
+        m.write('you got {}'.format(rand),font=100)
+        sleep(.3)
+        coun2=0
+        for s in range(len(h1)):
+            for q in range(4):
+                if (abs(a1[q].pos()[0]-h1[s][0])<10 and abs(a1[q].pos()[1]-h1[s][1])<10) and s+rand>=len(h1):
+                    coun2+=1
+        for q1 in range(4):
+            for e in p5[per]:
+                if abs(e[0]-a1[q1].pos()[0])<10 and abs(e[1]-a1[q1].pos()[1])<10:
+                    coun2+=1
+        if coun2==4:
+            if rand!=6:
+                m.clear()
+                break
+        if rand==6:
+            for i in range(4):
+                a1[i].write(str(i+1),align='right',font=100)
+            while 2:
+                i=k.read_key()
+                if i in ['1','2','3','4']:
+                    clean(a1)
+                    order(a1,i,h1,rand)
+                    break
+        else:
+            con=0
+            for i in range(len(h1)-1):
+                for j in range(4):
+                    if abs(h1[i][0]-a1[j].pos()[0])<10 and abs(h1[i][1]-a1[j].pos()[1])<10:
+                        a1[j].write(str(j+1),align='right',font=100)
+                        con+=1
+            if con>0:
+                while 2:
+                    i=k.read_key()
+                    if i in ['1','2','3','4']:
+                        if ga(a1,i,h1,rand):
+                            break
+        cou=0
+        for j in range(4):
+            if abs(a1[j].pos()[0]-h1[-1][0])<10 and abs(a1[j].pos()[1]-h1[-1][1])<10:
+                cou+=1
+        if cou==4:
+            m.write(b1+' chance over',font=100)
+            tr[per]='d'
+
+        m.clear()
+tr=[0,1,2,3]
+def game():
+    global per,rs
+    f11=[]
+    while 4:
+        if rs=='yes':
+            t.tracer(0)
+            temp=['a','b','c','d']
+            for i in range(len(temp)):
+                for j in range(len(clr[i])):
+                    clr[i][j].shapesize(1.5)
+                    clr[i][j].goto(rd['{}{}'.format(temp[i],j+1)])
+                    clr[i][j].shapesize(1)
+            per=rd['number']
+            for i in co:
+                rl.append(rd[i])
+            for l2 in tr:
+                if l2<per:
+                    f11.append(l2)
+            for i in f11:
+                tr.remove(i)
+            rs='exist'
+            t.tracer(1,1)
+        else:
+            for per in tr:
+                if per in [0,1,2,3]:
+                    m.color(co[per])
+                    m.write("{} person's turn".format(per+1),font=100)
+                    sleep(.3)
+                    pl(clr[per],rl[per],h[per])
+                    if tr.count('d')==3:
+                        m.color('white')
+                        m.showturtle()
+                        m.write('over',align='center',font=100)
+                        m.hideturtle()
+                        sleep(5)
+                        t.bye()
+                        return 1
+            if rs=='exist':
+                for i in f11:
+                    tr.insert(i,i)
+                rs='no'
+if __name__=='__main__':
+    game()
