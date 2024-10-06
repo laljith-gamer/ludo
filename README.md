@@ -10,4 +10,4 @@ for roll 'enter'
 
 
 
- -----------noe enjoy playing and follow me to more creative program--------------------
+ -----------now enjoy playing and follow me to more creative program--------------------
